@@ -1,0 +1,30 @@
+.public-site-shell {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: clip;
+}
+
+.public-site-shell main {
+  flex: 1;
+}
+
+.site-footer {
+  margin-top: auto;
+  padding: 18px 0;
+}
+
+.footer-inner {
+  row-gap: 8px;
+}
+
+.footer-inner > p {
+  margin-block: 0;
+}
+
+@media (max-width: 650px) {
+  .site-footer {
+    padding: 14px 0;
+  }
+}

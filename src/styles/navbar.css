@@ -1,0 +1,293 @@
+.site-header {
+  position: fixed;
+  z-index: 100;
+  inset: 0 0 auto;
+  border-bottom: 1px solid rgba(255, 255, 255, .055);
+  background: rgba(7, 9, 16, .52);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: background .2s ease, border-color .2s ease;
+}
+.site-header.is-scrolled {
+  border-color: rgba(255, 255, 255, .09);
+  background: rgba(7, 9, 16, .91);
+}
+.site-header .nav-wrap {
+  position: relative;
+  display: grid;
+  min-height: 72px;
+  height: 72px;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(18px, 3vw, 42px);
+}
+.site-header .brand-logo {
+  width: max-content;
+  color: #f3f4f8;
+  font-size: 14px;
+  font-weight: 750;
+  letter-spacing: .14em;
+  white-space: nowrap;
+}
+.site-header .nav-links {
+  position: static;
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(13px, 2.15vw, 29px);
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.site-header .nav-links > a:not(.mobile-talk, .mobile-signin) {
+  position: relative;
+  display: inline-flex;
+  min-height: 72px;
+  align-items: center;
+  padding: 0 1px;
+  color: #aeb3c2;
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: color .16s ease;
+}
+.site-header .nav-links > a:not(.mobile-talk, .mobile-signin)::after {
+  position: absolute;
+  right: 1px;
+  bottom: 17px;
+  left: 1px;
+  height: 1px;
+  background: #9ca9ff;
+  content: "";
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform .16s ease;
+}
+.site-header .nav-links > a:not(.mobile-talk, .mobile-signin):hover,
+.site-header .nav-links > a:not(.mobile-talk, .mobile-signin).active {
+  color: #f3f4f8;
+}
+.site-header .nav-links > a:not(.mobile-talk, .mobile-signin).active::after {
+  transform: scaleX(1);
+}
+.site-header .nav-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+.site-header .nav-signin {
+  color: #aeb3c2;
+  font-size: 10px;
+  font-weight: 500;
+  transition: color .16s ease;
+}
+.site-header .nav-signin:hover { color: #fff; }
+.site-header .nav-talk,
+.site-header .nav-links > .mobile-talk {
+  display: inline-flex;
+  min-height: 34px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 12px;
+  border: 1px solid rgba(156, 169, 255, .34);
+  border-radius: 7px;
+  color: #dfe3ff;
+  background: rgba(141, 156, 255, .09);
+  font-size: 10px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: border-color .16s ease, color .16s ease, background .16s ease;
+}
+.site-header .nav-talk:hover,
+.site-header .nav-links > .mobile-talk:hover {
+  border-color: rgba(156, 169, 255, .65);
+  color: #fff;
+  background: rgba(141, 156, 255, .16);
+}
+.site-header .nav-talk > span { color: #aeb7ff; font-size: 12px; }
+.site-header .nav-account-controls {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px;
+  border: 1px solid rgba(255, 255, 255, .09);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, .025);
+}
+.site-header .nav-account-profile,
+.site-header .nav-account-signout {
+  display: inline-flex;
+  min-height: 30px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 0 10px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: #c4c8d5;
+  background: transparent;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 550;
+  white-space: nowrap;
+  transition: color .16s ease, border-color .16s ease, background .16s ease;
+}
+.site-header .nav-account-profile > i,
+.site-header .nav-account-signout > i { font-size: 14px; }
+.site-header .nav-account-profile:hover {
+  border-color: rgba(156, 169, 255, .2);
+  color: #f2f3ff;
+  background: rgba(141, 156, 255, .08);
+}
+.site-header .nav-account-signout {
+  cursor: pointer;
+  color: #aeb3c2;
+}
+.site-header .nav-account-signout:hover {
+  border-color: rgba(255, 122, 139, .2);
+  color: #ff9ba7;
+  background: rgba(255, 91, 112, .07);
+}
+.site-header .nav-links > .mobile-talk,
+.site-header .nav-links > .mobile-signin,
+.site-header .nav-links > .mobile-admin-signin { display: none; }
+.site-header .menu-toggle {
+  display: none;
+  width: 38px;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, .12);
+  border-radius: 8px;
+  color: #e6e7f1;
+  background: rgba(255, 255, 255, .025);
+  font-size: 21px;
+  transition: border-color .16s ease, background .16s ease;
+}
+.site-header .menu-toggle:hover { border-color: rgba(255, 255, 255, .25); background: rgba(255, 255, 255, .06); }
+.site-header :focus-visible {
+  outline: 2px solid #aeb7ff;
+  outline-offset: 4px;
+}
+
+@media (max-width: 1040px) {
+  .site-header .nav-wrap {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .site-header .menu-toggle { display: inline-flex; order: 3; }
+  .site-header .nav-actions { display: none; }
+  .site-header .nav-links {
+    position: absolute;
+    z-index: 2;
+    top: calc(100% + 1px);
+    left: 50%;
+    display: flex;
+    width: 100vw;
+    max-height: calc(100dvh - 73px);
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0;
+    overflow-y: auto;
+    padding: 9px 22px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, .09);
+    background: rgba(7, 9, 16, .97);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, .16);
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -7px);
+    transform-origin: top center;
+    transition: opacity .18s ease, transform .18s ease, visibility .18s ease;
+    visibility: hidden;
+  }
+  .site-header .nav-links.open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, 0);
+    visibility: visible;
+  }
+  .site-header .nav-links > a:not(.mobile-talk, .mobile-signin, .mobile-admin-signin) {
+    min-height: 45px;
+    padding: 0 3px;
+    border-bottom: 1px solid rgba(255, 255, 255, .055);
+    color: #c0c4d0;
+    font-size: 13px;
+  }
+  .site-header .nav-links > a:not(.mobile-talk, .mobile-signin, .mobile-admin-signin)::after {
+    right: auto;
+    bottom: 0;
+    left: 0;
+    width: 24px;
+  }
+  .site-header .nav-links > .mobile-talk {
+    display: inline-flex;
+    min-height: 42px;
+    margin-top: 14px;
+  }
+  .site-header .nav-links > .mobile-signin {
+    display: inline-flex;
+    min-height: 42px;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-top: 5px;
+    padding: 0 12px;
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-radius: 8px;
+    color: #aeb3c2;
+    font-size: 11px;
+    text-align: left;
+    transition: border-color .16s ease, color .16s ease, background .16s ease;
+  }
+  .site-header .nav-links > .mobile-signin > i { font-size: 15px; }
+  .site-header .nav-links > .mobile-account-profile:hover {
+    border-color: rgba(156, 169, 255, .22);
+    color: #e5e8ff;
+    background: rgba(141, 156, 255, .07);
+  }
+  .site-header .nav-links > .mobile-admin-signin {
+    display: inline-flex;
+    min-height: 34px;
+    align-items: center;
+    justify-content: center;
+    color: #858ba0;
+    font-size: 10px;
+  }
+  .site-header .nav-links > .mobile-account-admin {
+    border-color: rgba(156, 169, 255, .13);
+    color: #bdc5ff;
+    background: rgba(141, 156, 255, .045);
+  }
+  .site-header .nav-links > .mobile-signout {
+    justify-content: center;
+    margin-top: 9px;
+    border-color: rgba(255, 122, 139, .14);
+    color: #e3a1aa;
+    background: rgba(255, 91, 112, .035);
+  }
+  .site-header .nav-links > .mobile-signout:hover {
+    border-color: rgba(255, 122, 139, .3);
+    color: #ffabb5;
+    background: rgba(255, 91, 112, .08);
+  }
+}
+@media (max-width: 650px) {
+  .site-header .nav-wrap { min-height: 65px; height: 65px; }
+  .site-header .nav-links { max-height: calc(100dvh - 66px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-header, .site-header *, .site-header *::before, .site-header *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+/* Role-aware account menu: Sign in / Create account / Profile / Admin dashboard / Sign out. */
+.site-header .nav-signin.nav-account-admin { color: #aeb7ff; font-weight: 600; }
+.site-header .nav-signin.nav-account-admin:hover { color: #fff; }
+.site-header .mobile-signin.mobile-account-admin { color: #aeb7ff; font-weight: 600; }

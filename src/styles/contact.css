@@ -1,0 +1,204 @@
+.contact-section {
+  padding-top: clamp(88px, 12vh, 132px);
+}
+
+.contact-section .contact-panel {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, .95fr) minmax(320px, 1.05fr);
+  gap: clamp(32px, 6vw, 78px);
+  overflow: hidden;
+  padding: clamp(26px, 5vw, 58px);
+  border-color: rgba(255, 255, 255, .11);
+  background:
+    radial-gradient(ellipse at 4% 0%, rgba(141, 156, 255, .105), transparent 40%),
+    linear-gradient(145deg, rgba(20, 23, 36, .93), rgba(10, 12, 20, .96));
+}
+
+.contact-section .contact-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.contact-copy .eyebrow {
+  margin: 0;
+  line-height: 1.7;
+}
+
+.contact-copy h2 {
+  margin: 14px 0 12px;
+}
+
+.contact-copy > p:not(.eyebrow) {
+  max-width: 390px;
+  margin: 0;
+  color: #a7acbc;
+  font-size: 13px;
+  line-height: 1.85;
+}
+
+.contact-copy > .button {
+  margin-top: 23px;
+}
+
+.contact-section .social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 29px;
+}
+
+.contact-section .social-links a {
+  display: grid;
+  width: 37px;
+  height: 37px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, .11);
+  border-radius: 10px;
+  color: #aeb3c2;
+  background: rgba(255, 255, 255, .025);
+  font-size: 17px;
+  transition: color .16s ease, border-color .16s ease, background .16s ease, transform .16s ease;
+}
+
+.contact-section .social-links a:hover {
+  transform: translateY(-2px);
+  border-color: rgba(174, 183, 255, .38);
+  color: #dfe3ff;
+  background: rgba(141, 156, 255, .09);
+}
+
+.contact-section .contact-form {
+  display: grid;
+  align-content: center;
+  gap: 16px;
+  min-width: 0;
+  padding: clamp(18px, 3vw, 28px);
+  border: 1px solid rgba(255, 255, 255, .09);
+  border-radius: 13px;
+  background: rgba(5, 7, 13, .38);
+}
+
+.contact-form label {
+  display: grid;
+  gap: 8px;
+  color: #c8cada;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid rgba(255, 255, 255, .12);
+  border-radius: 8px;
+  outline: 0;
+  color: #f3f4f8;
+  background: rgba(4, 6, 12, .72);
+  color-scheme: dark;
+  font-size: 12px;
+  font-weight: 450;
+  transition: border-color .16s ease, box-shadow .16s ease, background .16s ease;
+}
+
+.contact-form input {
+  height: 45px;
+  padding: 0 13px;
+}
+
+.contact-form textarea {
+  min-height: 128px;
+  padding: 12px 13px;
+  resize: vertical;
+  line-height: 1.7;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: #747b8e;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: rgba(174, 183, 255, .62);
+  background: rgba(7, 9, 16, .92);
+  box-shadow: 0 0 0 3px rgba(141, 156, 255, .1);
+}
+
+.contact-form input:-webkit-autofill,
+.contact-form input:-webkit-autofill:hover,
+.contact-form input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #f3f4f8;
+  box-shadow: 0 0 0 1000px #0b0e17 inset;
+  transition: background-color 9999s ease-out;
+}
+
+.contact-form > .button {
+  justify-self: start;
+  min-width: 145px;
+  margin-top: 1px;
+}
+
+.contact-form .form-success {
+  margin: 0;
+  color: #82e6bf;
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.contact-form .form-error {
+  margin: 0;
+  color: #f0a3aa;
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.contact-form .form-error a {
+  color: #c5caff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.contact-form .button:disabled,
+.contact-form input:disabled,
+.contact-form textarea:disabled {
+  cursor: wait;
+  opacity: .7;
+}
+
+.contact-form :focus-visible,
+.contact-section .social-links a:focus-visible {
+  outline: 2px solid #aeb7ff;
+  outline-offset: 3px;
+}
+
+@media (max-width: 850px) {
+  .contact-section .contact-panel {
+    grid-template-columns: minmax(0, .9fr) minmax(280px, 1.1fr);
+    gap: 24px;
+    padding: 30px;
+  }
+}
+
+@media (max-width: 650px) {
+  .contact-section .contact-panel {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 27px;
+    padding: 23px;
+  }
+
+  .contact-section .contact-form {
+    padding: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-section .social-links a,
+  .contact-form input,
+  .contact-form textarea {
+    transition-duration: .01ms;
+  }
+}
