@@ -12,7 +12,7 @@ export default function Home() {
         <div className="hero-actions">
           <Link className="button button-primary" to="/contact">Get in Touch <i className="bx bx-right-arrow-alt" /></Link>
           <Link className="button button-ghost" to="/projects">View Work <i className="bx bx-arrow-down-right" /></Link>
-          <a className="resume-link" href="https://github.com/Kishan-devflow/blob/main/Kishan%20resume.pdf" target="_blank" rel="noreferrer">View Resume <i className="bx bx-link-external" /></a>
+          <a className="resume-link" href="https://drive.google.com/file/d/1J7F4H-jrt7XC96COpd_P0p-Rq2xCiH_O/view?usp=sharing" target="_blank" rel="noreferrer">View Resume <i className="bx bx-link-external" /></a>
         </div>
         <div className="hero-foot"><span><i className="bx bx-map" /> Bengaluru, Karnataka, India</span><span><i className="bx bx-code-alt" /> Full-Stack Developer · Builder</span></div>
       </div>
