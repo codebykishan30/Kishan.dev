@@ -5,7 +5,13 @@ import { authStorage } from './auth-storage.js';
 export { supabaseConfigured } from './supabase-env.js';
 export const supabase = supabaseConfigured
   ? createClient(supabaseUrl, supabaseAnonKey, {
-    auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, storage: authStorage },
+    auth: {
+      persistSession: true,
+      autoRefreshToken: true,
+      detectSessionInUrl: true,
+      flowType: 'pkce',
+      storage: authStorage,
+    },
   })
   : null;
 
