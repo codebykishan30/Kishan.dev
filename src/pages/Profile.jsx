@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Check, CheckCircle2, CircleHelp, Clock3, ImagePlus, LoaderCircle,
-  LogOut, Mail, Pencil, ShieldCheck, UserRound, X,
+  Check, CheckCircle2, CircleHelp, Clock3, ImagePlus, KeyRound, LoaderCircle,
+  LogOut, Mail, Pencil, Settings, ShieldCheck, UserRound, X,
 } from 'lucide-react';
 import { supabaseConfigured } from '../lib/supabase-env.js';
 import { requireSupabase } from '../lib/supabase.js';
@@ -49,6 +49,12 @@ export default function Profile() {
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState('');
   const [saveSuccess, setSaveSuccess] = useState('');
+  const [activeView, setActiveView] = useState('profile');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [updatingPassword, setUpdatingPassword] = useState(false);
+  const [passwordError, setPasswordError] = useState('');
+  const [passwordSuccess, setPasswordSuccess] = useState('');
   const [reloadKey, setReloadKey] = useState(0);
   const [loggingOut, setLoggingOut] = useState(false);
   const fileInputRef = useRef(null);
@@ -197,6 +203,34 @@ export default function Profile() {
     }
   }
 
+  async function updatePassword(event) {
+    event.preventDefault();
+    if (updatingPassword) return;
+    setPasswordError('');
+    setPasswordSuccess('');
+    if (newPassword !== confirmPassword) {
+      setPasswordError('Your passwords do not match.');
+      return;
+    }
+    if (newPassword.length < 8) {
+      setPasswordError('Your password must be at least 8 characters long.');
+      return;
+    }
+
+    setUpdatingPassword(true);
+    try {
+      const { error: updateError } = await requireSupabase().auth.updateUser({ password: newPassword });
+      if (updateError) throw updateError;
+      setNewPassword('');
+      setConfirmPassword('');
+      setPasswordSuccess('Your password was updated successfully.');
+    } catch (updateFailure) {
+      setPasswordError(describeProfileError(updateFailure));
+    } finally {
+      setUpdatingPassword(false);
+    }
+  }
+
   async function logout() {
     if (loggingOut) return;
     setLoggingOut(true);
@@ -280,6 +314,26 @@ export default function Profile() {
         </div>
       )}
 
+      <div className="profile-view-switch" role="group" aria-label="Profile sections">
+        <button
+          className={`profile-view-tab${activeView === 'profile' ? ' is-active' : ''}`}
+          type="button"
+          aria-pressed={activeView === 'profile'}
+          onClick={() => setActiveView('profile')}
+        >
+          <UserRound size={15} /> Profile
+        </button>
+        <button
+          className={`profile-view-tab${activeView === 'settings' ? ' is-active' : ''}`}
+          type="button"
+          aria-pressed={activeView === 'settings'}
+          onClick={() => setActiveView('settings')}
+        >
+          <Settings size={15} /> Settings
+        </button>
+      </div>
+
+      {activeView === 'profile' ? <div>
       <div className="profile-grid">
         <aside className="glass-card profile-card profile-enter">
           <div className="profile-avatar-wrap">
@@ -389,6 +443,46 @@ export default function Profile() {
         </div>
       </div>
       <MyReviews userId={session.user.id} />
+      </div> : <div>
+        <section className="glass-card profile-settings profile-enter">
+          <div className="profile-settings-heading">
+            <span className="profile-settings-icon"><KeyRound size={18} /></span>
+            <div>
+              <p className="eyebrow">ACCOUNT SECURITY</p>
+              <h3>Update your password</h3>
+              <p>Choose a new password with at least 8 characters.</p>
+            </div>
+          </div>
+
+          {passwordError && (
+            <div className="profile-message" role="alert"><CircleHelp size={16} /><span>{passwordError}</span></div>
+          )}
+          {passwordSuccess && (
+            <div className="profile-message success" role="status"><CheckCircle2 size={16} /><span>{passwordSuccess}</span></div>
+          )}
+
+          <form className="profile-form profile-password-form" onSubmit={updatePassword}>
+            <label htmlFor="profile-new-password">New password
+              <span className="profile-input-wrap">
+                <KeyRound size={15} />
+                <input id="profile-new-password" type="password" value={newPassword} minLength={8} autoComplete="new-password" required placeholder="Enter a new password" onChange={(event) => setNewPassword(event.target.value)} />
+              </span>
+            </label>
+            <label htmlFor="profile-confirm-password">Confirm new password
+              <span className="profile-input-wrap">
+                <KeyRound size={15} />
+                <input id="profile-confirm-password" type="password" value={confirmPassword} minLength={8} autoComplete="new-password" required placeholder="Re-enter your new password" onChange={(event) => setConfirmPassword(event.target.value)} />
+              </span>
+            </label>
+            <div className="profile-form-actions">
+              <button className="button button-primary" type="submit" disabled={updatingPassword}>
+                {updatingPassword ? <LoaderCircle className="profile-spin" size={16} /> : <Check size={16} />}
+                {updatingPassword ? 'Updating…' : 'Update password'}
+              </button>
+            </div>
+          </form>
+        </section>
+      </div>}
     </section>
   );
 }
