@@ -50,6 +50,7 @@ export default function Profile() {
   const [saveError, setSaveError] = useState('');
   const [saveSuccess, setSaveSuccess] = useState('');
   const [activeView, setActiveView] = useState('profile');
+  const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [updatingPassword, setUpdatingPassword] = useState(false);
@@ -208,6 +209,10 @@ export default function Profile() {
     if (updatingPassword) return;
     setPasswordError('');
     setPasswordSuccess('');
+    if (!currentPassword) {
+      setPasswordError('Enter your current password to continue.');
+      return;
+    }
     if (newPassword !== confirmPassword) {
       setPasswordError('Your passwords do not match.');
       return;
@@ -219,8 +224,20 @@ export default function Profile() {
 
     setUpdatingPassword(true);
     try {
-      const { error: updateError } = await requireSupabase().auth.updateUser({ password: newPassword });
+      const supabase = requireSupabase();
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email: session.user.email,
+        password: currentPassword,
+      });
+      if (signInError) {
+        if (/invalid login credentials/i.test(signInError.message || '')) {
+          throw new Error('Your current password is incorrect.');
+        }
+        throw signInError;
+      }
+      const { error: updateError } = await supabase.auth.updateUser({ password: newPassword });
       if (updateError) throw updateError;
+      setCurrentPassword('');
       setNewPassword('');
       setConfirmPassword('');
       setPasswordSuccess('Your password was updated successfully.');
@@ -462,6 +479,12 @@ export default function Profile() {
           )}
 
           <form className="profile-form profile-password-form" onSubmit={updatePassword}>
+            <label htmlFor="profile-current-password">Current password
+              <span className="profile-input-wrap">
+                <KeyRound size={15} />
+                <input id="profile-current-password" type="password" value={currentPassword} autoComplete="current-password" required placeholder="Enter your current password" onChange={(event) => setCurrentPassword(event.target.value)} />
+              </span>
+            </label>
             <label htmlFor="profile-new-password">New password
               <span className="profile-input-wrap">
                 <KeyRound size={15} />
