@@ -91,9 +91,59 @@
 .profile-actions { display: flex; width: 100%; gap: 10px; margin-top: 20px; }
 .profile-actions .button { flex: 1; min-height: 42px; font-size: 11px; }
 
+.profile-view-switch {
+  display: flex;
+  gap: 8px;
+  margin: 0 0 18px;
+  padding: 5px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, .025);
+}
+.profile-view-tab {
+  display: inline-flex;
+  min-height: 38px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 15px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  color: #9ba1b5;
+  background: transparent;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.profile-view-tab:hover { color: #f3f4f8; }
+.profile-view-tab.is-active {
+  border-color: rgba(174, 183, 255, .22);
+  color: #dfe3ff;
+  background: rgba(141, 156, 255, .1);
+}
+.profile-view-tab:focus-visible { outline: 2px solid #8d9cff; outline-offset: 2px; }
+
 /* Right panel: details and edit form */
 .profile-panel { padding: 26px; }
 .profile-panel h3 { margin: 6px 0 0; font-size: 18px; font-weight: 620; letter-spacing: -.02em; }
+
+.profile-settings { max-width: 680px; padding: 26px; }
+.profile-settings-heading { display: flex; align-items: flex-start; gap: 14px; }
+.profile-settings-icon {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid rgba(174, 183, 255, .24);
+  border-radius: 10px;
+  color: #aeb7ff;
+  background: rgba(141, 156, 255, .1);
+}
+.profile-settings-heading h3 { margin: 6px 0 5px; font-size: 18px; font-weight: 620; letter-spacing: -.02em; }
+.profile-settings-heading > div > p:last-child { color: var(--muted); font-size: 10px; }
+.profile-password-form { max-width: 460px; }
 
 .profile-details {
   display: grid;
